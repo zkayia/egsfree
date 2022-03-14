@@ -16,7 +16,10 @@ class GetCommand extends Command {
 	final description = "Get the current EGS free games.";
   
 	GetCommand() {
-		argParser.addFlag("all", abbr: "a", help: "Display all other free games.");
+		argParser
+			..addFlag("all", abbr: "a", help: "Display all other free games.")
+			..addOption("locale", abbr: "l", defaultsTo: "en-US", valueHelp: "en-US", help: "The locale to use when fetching data.")
+			..addOption("country", abbr: "c", defaultsTo: "US", valueHelp: "US", help: "The country to use when fetching data.");
 	}
 
 	@override
@@ -27,9 +30,9 @@ class GetCommand extends Command {
 			"store-site-backend-static.ak.epicgames.com",
 			"freeGamesPromotions",
 			{
-				"locale": "en-US",
-				"country": "US",
-				"allowCountries": "US",
+				"locale": argResults?["locale"] ?? "en-US",
+				"country": argResults?["country"] ?? "US",
+				"allowCountries": argResults?["country"] ?? "US",
 			}
 		);
 		final response = await get(uri);
@@ -38,7 +41,7 @@ class GetCommand extends Command {
 			stdout.writeln("No free game found.");
 			exit(0);
 		}
-		List<List<String>> discountedGames = [["", "Name", "Publisher", "Starts", "Ends"]];
+		List<List<String>> discountedGames = [["", "Name", "Publisher", "Starts", "Ends", "Original price"]];
 		List<List<String>> otherGames = [["", "Name", "Publisher"]];
 		for (final game in games) {
 			if (game.promotions == null) {
@@ -56,6 +59,7 @@ class GetCommand extends Command {
 				game.seller,
 				offer == null ? "Unknown" : _formatDate(offer.startDateTime),
 				offer == null ? "Unknown" : _formatDate(offer.endDateTime),
+				"${(game.originalPrice / 100).toString()} ${game.currencyCode}",
 			]);
 		}
 		if (discountedGames.length <= 1 && (otherGames.length <= 1 || !showAll)) {
