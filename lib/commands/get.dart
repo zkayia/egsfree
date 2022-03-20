@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:dolumns/dolumns.dart';
+import 'package:egs_free_games/models/cli_config.dart';
 import 'package:egs_free_games/models/game.dart';
 import 'package:egs_free_games/models/promotion.dart';
 import 'package:egs_free_games/utils/cli_config_handler.dart';
@@ -44,7 +45,7 @@ class GetCommand extends Command {
 			stdout.writeln("No free game found.");
 			exit(0);
 		}
-		_displayGameList(games, argResults);
+		_displayGameList(games, argResults, config);
 	}
 }
 
@@ -70,35 +71,71 @@ Promotion? _extractOffer(Game game) => game.promotions == null
 			: game.promotions!.upcomingPromotionalOffers.first
 		: game.promotions!.promotionalOffers.first;
 
-void _displayGameList(List<Game> games, ArgResults? argResults) {
-	List<List<String>> discountedGames = [["", "Name", "Publisher", "Starts", "Ends", "Original price"]];
-	List<List<String>> otherGames = [["", "Name", "Publisher"]];
+void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config) {
+	List<MapEntry<Promotion?, dynamic>> discountedGames = [];
+	List<List<String>> otherGames = [];
 	for (final game in games) {
 		if (game.promotions == null) {
-			otherGames.add(["  -", game.title, game.seller]);
+			otherGames.add([
+				"  -",
+				game.title,
+				game.seller,
+				"https://www.epicgames.com/store/${config.locale}/p/${game.productSlug}",
+			]);
 			continue;
 		}
 		final offer = _extractOffer(game);
-		discountedGames.add([
-			"  -",
-			game.title,
-			game.seller,
-			offer == null ? "Unknown" : _formatDate(offer.startDateTime),
-			offer == null ? "Unknown" : _formatDate(offer.endDateTime),
-			"${game.originalPrice / 100} ${game.currencyCode}",
-		]);
+		discountedGames.add(
+			MapEntry(
+				offer,
+				[
+					"  -",
+					game.title,
+					game.seller,
+					offer == null ? "Unknown" : _formatDate(offer.startDateTime),
+					offer == null ? "Unknown" : _formatDate(offer.endDateTime),
+					"${game.originalPrice / 100} ${game.currencyCode}",
+					"https://www.epicgames.com/store/${config.locale}/p/${game.productSlug}",
+				]
+			),
+		);
 	}
 	final showAll = argResults?["all"] ?? false;
-	if (discountedGames.length <= 1 && (otherGames.length <= 1 || !showAll)) {
-		stdout.writeln("No free games.");
+	if (discountedGames.isEmpty && (otherGames.isEmpty || !showAll)) {
+		stdout.writeln("No free games found.");
 		exit(0);
 	}
-	if (discountedGames.length > 1) {
+	if (discountedGames.isNotEmpty) {
+		discountedGames.sort(
+			(a, b) {
+				if (a.key == null || b.key == null) {
+					return a.key == null
+						? b.key == null
+							? 0
+							: 1
+						: -1;
+				}
+				final start = a.key!.startDateTime.compareTo(b.key!.startDateTime);
+				return start == 0
+					? a.key!.endDateTime.compareTo(b.key!.endDateTime)
+					: start;
+			},
+		);
 		stdout.writeln("\nDiscounted free games:\n");
-		stdout.writeln(dolumnify(discountedGames));
+		stdout.writeln(
+			dolumnify([
+				["", "Name", "Publisher", "Starts", "Ends", "Original price", "Store link"],
+				...discountedGames.map((e) => e.value),
+			]),
+		);
 	}
-	if (otherGames.length > 1 && showAll) {
+	if (otherGames.isNotEmpty && showAll) {
 		stdout.writeln("\nOther free games:\n");
-		stdout.writeln(dolumnify(otherGames));
+		stdout.writeln(
+			dolumnify([
+				["", "Name", "Publisher", "Store link"],
+				...otherGames,
+			]),
+		);
 	}
 }
