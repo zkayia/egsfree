@@ -22,13 +22,25 @@ class CliConfig {
 		country: country ?? this.country,
 	);
 
+	factory CliConfig.withDefaults() => CliConfig(
+		locale: configDefaultLocale,
+		country: configDefaultCountry,
+	);
+
 	factory CliConfig.fromMap(Map<String, dynamic> map) => CliConfig(
 		locale: map["locale"] ?? configDefaultLocale,
 		country: map["country"] ?? configDefaultCountry,
 	);
 
+	Map<String, dynamic> toMap() => {
+		"locale": locale,
+		"country": country,
+	};
+
 	factory CliConfig.fromJson(String source) => CliConfig.fromMap(json.decode(source));
 
+	String toJson() => json.encode(toMap());
+	
 	@override
 	String toString() => "CliConfig(locale: $locale, country: $country)";
 
