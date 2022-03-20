@@ -1,5 +1,5 @@
 name: egsfree
-description: A sample command-line application.
+description: A cli to fetch EpicGamesStore free games.
 version: 1.0.0
 homepage: https://github.com/zkayia/egsfree
 issue_tracker: https://github.com/zkayia/egsfree/issues

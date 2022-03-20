@@ -4,7 +4,7 @@ import 'package:egsfree/commands.dart';
 
 
 void main(List<String> arguments) {
-	final runner = CommandRunner("egsfree", "Epic Games Store free games cli.");
+	final runner = CommandRunner("egsfree", "A cli to fetch EpicGamesStore free games.");
 	for (final command in commands) {
 		runner.addCommand(command);
 	}
