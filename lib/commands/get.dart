@@ -7,6 +7,7 @@ import 'package:args/command_runner.dart';
 import 'package:dolumns/dolumns.dart';
 import 'package:egs_free_games/models/game.dart';
 import 'package:egs_free_games/models/promotion.dart';
+import 'package:egs_free_games/utils/cli_config_handler.dart';
 import 'package:http/http.dart' show get;
 
 
@@ -20,20 +21,21 @@ class GetCommand extends Command {
 	GetCommand() {
 		argParser
 			..addFlag("all", abbr: "a", help: "Display all other free games.")
-			..addOption("locale", abbr: "l", defaultsTo: "en-US", valueHelp: "en-US", help: "The locale to use when fetching data.")
-			..addOption("country", abbr: "c", defaultsTo: "US", valueHelp: "US", help: "The country to use when fetching data.");
+			..addOption("locale", abbr: "l", valueHelp: "en-US", help: "The locale to use when fetching data.")
+			..addOption("country", abbr: "c", valueHelp: "US", help: "The country to use when fetching data.");
 	}
 
 	@override
 	Future<void> run() async {
 		exitCode = 0;
+		final config = await CliConfigHandler.read();
 		final uri = Uri.https(
 			"store-site-backend-static.ak.epicgames.com",
 			"/freeGamesPromotions",
 			{
-				"locale": argResults?["locale"] ?? "en-US",
-				"country": argResults?["country"] ?? "US",
-				"allowCountries": argResults?["country"] ?? "US",
+				"locale": argResults?["locale"] ?? config.locale,
+				"country": argResults?["country"] ?? config.country,
+				"allowCountries": argResults?["country"] ?? config.country,
 			}
 		);
 		final response = await get(uri);
