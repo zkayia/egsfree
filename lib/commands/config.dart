@@ -74,7 +74,7 @@ class _ConfigGetCommand extends Command {
 		}
 		stdout.writeln(
 			dolumnify([
-				for (String key in keys)
+				for (final key in keys)
 					[
 						key,
 						configMap.containsKey(key)
@@ -95,7 +95,7 @@ class _ConfigSetCommand extends Command {
 
 	_ConfigSetCommand() {
 		final configMap = CliConfig.withDefaults().toMap();
-		for (MapEntry<String, dynamic> entry in configMap.entries) {
+		for (final entry in configMap.entries) {
 			argParser.addOption(
 				entry.key, 
 				valueHelp: entry.value.toString(),
@@ -108,7 +108,7 @@ class _ConfigSetCommand extends Command {
 		exitCode = 0;
 		final configKeys = CliConfig.withDefaults().toMap().keys;
 		CliConfig config = await CliConfigHandler.read();
-		for (String key in configKeys) {
+		for (final key in configKeys) {
 			final value = argResults?[key];
 			if (value != null) {
 				config = config.copyWithKey(key: key, value: value);
