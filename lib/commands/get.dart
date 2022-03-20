@@ -97,6 +97,6 @@ void _displayGameList(List<Game> games, ArgResults? argResults) {
 	}
 	if (otherGames.length > 1 && showAll) {
 		stdout.writeln("\nOther free games:\n");
-		stdout.writeln(dolumnify(otherGames));	
+		stdout.writeln(dolumnify(otherGames));
 	}
 }
