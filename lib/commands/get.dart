@@ -85,7 +85,7 @@ void _displayGameList(List<Game> games, ArgResults? argResults) {
 			game.seller,
 			offer == null ? "Unknown" : _formatDate(offer.startDateTime),
 			offer == null ? "Unknown" : _formatDate(offer.endDateTime),
-			"${(game.originalPrice / 100).toString()} ${game.currencyCode}",
+			"${game.originalPrice / 100} ${game.currencyCode}",
 		]);
 	}
 	final showAll = argResults?["all"] ?? false;
