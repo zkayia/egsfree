@@ -1,6 +1,6 @@
 
-import 'package:egs_free_games/commands/config.dart';
-import 'package:egs_free_games/commands/get.dart';
+import 'package:egsfree/commands/config.dart';
+import 'package:egsfree/commands/get.dart';
 
 
 final commands = [

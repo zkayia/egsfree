@@ -1,9 +1,9 @@
-name: egs_free_games
+name: egsfree
 description: A sample command-line application.
 version: 1.0.0
-homepage: https://github.com/zkayia/egs-free-games
-issue_tracker: https://github.com/zkayia/egs-free-games/issues
-repository: https://github.com/zkayia/egs-free-games
+homepage: https://github.com/zkayia/egsfree
+issue_tracker: https://github.com/zkayia/egsfree/issues
+repository: https://github.com/zkayia/egsfree
 
 environment:
   sdk: '>=2.16.1 <3.0.0'

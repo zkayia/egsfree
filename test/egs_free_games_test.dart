@@ -1,4 +1,4 @@
-import 'package:egs_free_games/commands.dart';
+import 'package:egsfree/commands.dart';
 import 'package:test/test.dart';
 
 void main() {

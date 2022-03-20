@@ -5,10 +5,10 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:dolumns/dolumns.dart';
-import 'package:egs_free_games/models/cli_config.dart';
-import 'package:egs_free_games/models/game.dart';
-import 'package:egs_free_games/models/promotion.dart';
-import 'package:egs_free_games/utils/cli_config_handler.dart';
+import 'package:egsfree/models/cli_config.dart';
+import 'package:egsfree/models/game.dart';
+import 'package:egsfree/models/promotion.dart';
+import 'package:egsfree/utils/cli_config_handler.dart';
 import 'package:http/http.dart' show get;
 
 

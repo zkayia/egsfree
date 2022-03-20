@@ -2,8 +2,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:egs_free_games/constants.dart';
-import 'package:egs_free_games/models/cli_config.dart';
+import 'package:egsfree/constants.dart';
+import 'package:egsfree/models/cli_config.dart';
 
 
 class CliConfigHandler {

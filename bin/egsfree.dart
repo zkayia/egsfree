@@ -1,6 +1,6 @@
 
 import 'package:args/command_runner.dart';
-import 'package:egs_free_games/commands.dart';
+import 'package:egsfree/commands.dart';
 
 
 void main(List<String> arguments) {

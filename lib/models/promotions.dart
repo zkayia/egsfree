@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
-import 'package:egs_free_games/models/promotion.dart';
+import 'package:egsfree/models/promotion.dart';
 
 
 class Promotions {

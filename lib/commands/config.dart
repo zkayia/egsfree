@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:dolumns/dolumns.dart';
-import 'package:egs_free_games/constants.dart';
-import 'package:egs_free_games/models/cli_config.dart';
-import 'package:egs_free_games/utils/cli_config_handler.dart';
+import 'package:egsfree/constants.dart';
+import 'package:egsfree/models/cli_config.dart';
+import 'package:egsfree/utils/cli_config_handler.dart';
 
 
 class ConfigCommand extends Command {

@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-import 'package:egs_free_games/models/promotions.dart';
+import 'package:egsfree/models/promotions.dart';
 
 
 class Game {
