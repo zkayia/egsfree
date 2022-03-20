@@ -22,6 +22,15 @@ class CliConfig {
 		country: country ?? this.country,
 	);
 
+	CliConfig copyWithKey({
+		required String key,
+		required dynamic value,
+	}) {
+		final config = toMap();
+		config[key] = value;
+		return CliConfig.fromMap(config);
+	}
+
 	factory CliConfig.withDefaults() => CliConfig(
 		locale: configDefaultLocale,
 		country: configDefaultCountry,
