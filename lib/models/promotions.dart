@@ -26,8 +26,8 @@ class Promotions {
 	factory Promotions.fromMap(Map<String, dynamic> map) => Promotions(
 		promotionalOffers: List<Promotion>.from(
 			map["promotionalOffers"]?.isEmpty ?? true
-			? []
-			: map["promotionalOffers"]?.first?["promotionalOffers"]?.map((x) => Promotion.fromMap(x)),
+				? []
+				: map["promotionalOffers"]?.first?["promotionalOffers"]?.map((x) => Promotion.fromMap(x)),
 		),
 		upcomingPromotionalOffers: List<Promotion>.from(
 			map["upcomingPromotionalOffers"]?.isEmpty ?? true
