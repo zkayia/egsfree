@@ -29,7 +29,7 @@ class GetCommand extends Command {
 		exitCode = 0;
 		final uri = Uri.https(
 			"store-site-backend-static.ak.epicgames.com",
-			"freeGamesPromotions",
+			"/freeGamesPromotions",
 			{
 				"locale": argResults?["locale"] ?? "en-US",
 				"country": argResults?["country"] ?? "US",
