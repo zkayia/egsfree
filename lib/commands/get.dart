@@ -96,7 +96,7 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 					offer == null ? "Unknown" : _formatDate(offer.endDateTime),
 					"${game.originalPrice / 100} ${game.currencyCode}",
 					"https://www.epicgames.com/store/${config.locale}/p/${game.productSlug}",
-				]
+				],
 			),
 		);
 	}
@@ -123,19 +123,27 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 		);
 		stdout.writeln("\nDiscounted free games:\n");
 		stdout.writeln(
-			dolumnify([
-				["", "Name", "Publisher", "Starts", "Ends", "Original price", "Store link"],
-				...discountedGames.map((e) => e.value),
-			]),
+			dolumnify(
+				[
+					["", "Name", "Publisher", "Starts", "Ends", "Original price", "Store link"],
+					...discountedGames.map((e) => e.value),
+				],
+				headerIncluded: true,
+				headerSeparator: "-",
+			),
 		);
 	}
 	if (otherGames.isNotEmpty && showAll) {
 		stdout.writeln("\nOther free games:\n");
 		stdout.writeln(
-			dolumnify([
-				["", "Name", "Publisher", "Store link"],
-				...otherGames,
-			]),
+			dolumnify(
+				[
+					["", "Name", "Publisher", "Store link"],
+					...otherGames,
+				],
+				headerIncluded: true,
+				headerSeparator: "-",
+			),
 		);
 	}
 }
