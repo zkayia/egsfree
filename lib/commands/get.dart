@@ -75,7 +75,8 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 	List<MapEntry<Promotion?, dynamic>> discountedGames = [];
 	List<List<String>> otherGames = [];
 	for (final game in games) {
-		if (game.promotions == null) {
+		final offer = _extractOffer(game);
+		if (offer == null) {
 			otherGames.add([
 				"  -",
 				game.title,
@@ -84,7 +85,6 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 			]);
 			continue;
 		}
-		final offer = _extractOffer(game);
 		discountedGames.add(
 			MapEntry(
 				offer,
@@ -92,8 +92,8 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 					"  -",
 					game.title,
 					game.seller,
-					offer == null ? "Unknown" : _formatDate(offer.startDateTime),
-					offer == null ? "Unknown" : _formatDate(offer.endDateTime),
+					_formatDate(offer.startDateTime),
+					_formatDate(offer.endDateTime),
 					"${game.originalPrice / 100} ${game.currencyCode}",
 					"https://www.epicgames.com/store/${config.locale}/p/${game.productSlug}",
 				],
