@@ -9,7 +9,6 @@ import 'package:egsfree/models/cli_config.dart';
 import 'package:egsfree/models/game.dart';
 import 'package:egsfree/models/promotion.dart';
 import 'package:egsfree/utils/cli_config_handler.dart';
-import 'package:http/http.dart' show get;
 
 
 class GetCommand extends Command {
@@ -39,8 +38,8 @@ class GetCommand extends Command {
 				"allowCountries": argResults?["country"] ?? config.country,
 			}
 		);
-		final response = await get(uri);
-		final games = _getGames(jsonDecode(response.body));
+		final data = await _getGames(uri);
+		final games = _parseGames(jsonDecode(data));
 		if (games.isEmpty) {
 			stdout.writeln("No free game found.");
 			exit(0);
@@ -49,10 +48,24 @@ class GetCommand extends Command {
 	}
 }
 
-List<Game> _getGames(data) {
+Future<String> _getGames(Uri uri) async {
+	final client = HttpClient();
+	try {
+		final request = await client.getUrl(uri);
+		final response = await request.close();
+		return response.transform(utf8.decoder).join();
+	} catch (err) {
+		stderr.writeln("Error: unable to fetch online data.");
+		exit(2);
+	} finally {
+		client.close();
+	} 
+}
+
+List<Game> _parseGames(data) {
 	final List? games = data?["data"]?["Catalog"]?["searchStore"]?["elements"];
 	if (games == null) {
-		stderr.writeln("Error: failed to get egs free games.");
+		stderr.writeln("Error: failed to parse EGS free games.");
 		exit(2);
 	}
 	return games.map((e) => Game.fromMap(e)).where((e) => e.status == "ACTIVE" && !e.isCodeRedemptionOnly).toList();
