@@ -67,7 +67,12 @@ class _ConfigGetCommand extends Command {
 		if (keys.isEmpty) {
 			stdout.writeln(
 				dolumnify(
-					configMap.entries.map<List<Object>>((e) => [e.key, e.value]).toList(),	
+					[
+						["Keys", "Values"],
+						...configMap.entries.map<List<Object>>((e) => [e.key, e.value]),
+					],
+					headerIncluded: true,
+					headerSeparator: "-",
 				),
 			);
 			return;
