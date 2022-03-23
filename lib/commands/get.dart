@@ -58,10 +58,33 @@ List<Game> _getGames(data) {
 	return games.map((e) => Game.fromMap(e)).where((e) => e.status == "ACTIVE" && !e.isCodeRedemptionOnly).toList();
 }
 
-String _formatDate(DateTime date) =>
-	"${_zpad(date.day)}/${_zpad(date.month)}/${_zpad(date.year)} ${_zpad(date.hour)}:${_zpad(date.minute)}";
-
-String _zpad(int data) => data.toString().padLeft(2, "0");
+String _formatTimeframe(DateTime start, DateTime end) {
+	final now = DateTime.now();
+	switch (now.compareTo(start)) {
+		case -1:
+			final weeks = (
+				start.millisecondsSinceEpoch - now.millisecondsSinceEpoch
+			) ~/ (
+				1000 * 60 * 60 * 24 * 7
+			);
+			switch (weeks) {
+				case 0:
+					return "On thursday";
+				case 1:
+					return "Next week";
+				default:
+					return "In $weeks weeks";
+			}
+		case 1:
+			return now.compareTo(end) == -1
+				? "Currently active"
+				: "Expired";
+		case 0:
+			return "Currently active";
+		default:
+			return "Unknown";
+	}
+}
 
 Promotion? _extractOffer(Game game) => game.promotions == null
 	? null
@@ -92,8 +115,7 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 					"  -",
 					game.title,
 					game.seller,
-					_formatDate(offer.startDateTime),
-					_formatDate(offer.endDateTime),
+					_formatTimeframe(offer.startDateTime, offer.endDateTime),
 					"${game.originalPrice / 100} ${game.currencyCode}",
 					"https://www.epicgames.com/store/${config.locale}/p/${game.productSlug}",
 				],
@@ -125,7 +147,7 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 		stdout.writeln(
 			dolumnify(
 				[
-					["", "Name", "Publisher", "Starts", "Ends", "Original price", "Store link"],
+					["", "Name", "Publisher", "Starts", "Original price", "Store link"],
 					...discountedGames.map((e) => e.value),
 				],
 				headerIncluded: true,
