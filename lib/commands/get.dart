@@ -104,7 +104,7 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 				"  -",
 				game.title,
 				game.seller,
-				"https://www.epicgames.com/store/${config.locale}/p/${game.productSlug}",
+				"\u001B]8;;https://www.epicgames.com/store/${config.locale}/p/${game.productSlug}\u001B\\Link\u001B]8;;\u001B\\",
 			]);
 			continue;
 		}
@@ -117,7 +117,7 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 					game.seller,
 					_formatTimeframe(offer.startDateTime, offer.endDateTime),
 					"${game.originalPrice / 100} ${game.currencyCode}",
-					"https://www.epicgames.com/store/${config.locale}/p/${game.productSlug}",
+					"\u001B]8;;https://www.epicgames.com/store/${config.locale}/p/${game.productSlug}\u001B\\Link\u001B]8;;\u001B\\",
 				],
 			),
 		);
@@ -145,14 +145,11 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 		);
 		stdout.writeln("\nDiscounted free games:\n");
 		stdout.writeln(
-			dolumnify(
-				[
-					["", "Name", "Publisher", "Starts", "Original price", "Store link"],
-					...discountedGames.map((e) => e.value),
-				],
-				headerIncluded: true,
-				headerSeparator: "-",
-			),
+			dolumnify([
+				["", "Name", "Publisher", "Starts", "Original price", "Store link"],
+				...discountedGames.map((e) => e.value),
+				// headers with headerIncluded=true & headerSeparator="-" bugs out because OSC8 link arent supported
+			]),
 		);
 	}
 	if (otherGames.isNotEmpty && showAll) {
