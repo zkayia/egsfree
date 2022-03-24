@@ -7,7 +7,7 @@ A simple cli to find out what are the current and future free games on the EpicG
 
 ## Installation
 
-Download a binary from the [Releases](https://github.com/zkayia/egsfree/releases/latest) tab or [Build](##Build) one.
+Download a binary from the [Releases](https://github.com/zkayia/egsfree/releases/latest) tab or [Build](#Build) one.
 
 Then add the binary to your OS's PATH or specify the full path in the terminal.
 
