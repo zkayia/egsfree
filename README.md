@@ -1,7 +1,7 @@
 
 # egsfree
 
-![Demo animation](../blob/master/demo_anim.svg "Demo animation")
+![Demo animation](demo_anim.svg "Demo animation")
 
 A simple cli to find out what are the current and future free games on the EpicGamesStore.
 
@@ -61,7 +61,7 @@ Running `egsfree config set --help` will show all possible keys and their defaul
    git clone https://github.com/zkayia/egsfree
    ```
 
-2. Make sure your installed sdk fits the requirement in the [pubspec.yaml](../blob/master/pubspec.yaml) file (under `environment` > `sdk`).
+2. Make sure your installed sdk fits the requirement in the [pubspec.yaml](pubspec.yaml) file (under `environment` > `sdk`).
 
 3. Navigate to the project's root folder.
 
