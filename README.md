@@ -72,10 +72,10 @@ Running `egsfree config set --help` will show all possible keys and their defaul
 
 5. Run it:
    ```
-   dart run ./bin/egs_free_games.dart
+   dart run ./bin/egsfree.dart
    ```
 
    Or compile it ([more info on dart compile](https://dart.dev/tools/dart-compile)):
    ```
-   dart compile exe ./bin/egs_free_games.dart
+   dart compile exe ./bin/egsfree.dart
    ```  
