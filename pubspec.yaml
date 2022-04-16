@@ -1,6 +1,6 @@
 name: egsfree
 description: A cli to fetch EpicGamesStore free games.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/zkayia/egsfree
 issue_tracker: https://github.com/zkayia/egsfree/issues
 repository: https://github.com/zkayia/egsfree

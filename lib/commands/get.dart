@@ -51,7 +51,9 @@ class GetCommand extends Command {
 Future<String> _getGames(Uri uri) async {
 	final client = HttpClient();
 	try {
-		final request = await client.getUrl(uri);
+		final request = await client.getUrl(uri)
+			..followRedirects = false
+			..persistentConnection = false;
 		final response = await request.close();
 		return response.transform(utf8.decoder).join();
 	} catch (err) {
