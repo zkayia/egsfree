@@ -143,26 +143,21 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 					: start;
 			},
 		);
-		stdout.writeln("\nDiscounted free games:\n");
+		stdout.writeln("Discounted free games:");
 		stdout.writeln(
 			dolumnify([
-				["", "Name", "Publisher", "Starts", "Original price", "Store link"],
+				["", "Name", "Publisher", "Starts", "Original price", "Store link\n"],
 				...discountedGames.map((e) => e.value),
-				// headers with headerIncluded=true & headerSeparator="-" bugs out because OSC8 link arent supported
 			]),
 		);
 	}
 	if (otherGames.isNotEmpty && showAll) {
-		stdout.writeln("\nOther free games:\n");
+		stdout.writeln("\nOther free games:");
 		stdout.writeln(
-			dolumnify(
-				[
-					["", "Name", "Publisher", "Store link"],
-					...otherGames,
-				],
-				headerIncluded: true,
-				headerSeparator: "-",
-			),
+			dolumnify([
+				["", "Name", "Publisher", "Store link"],
+				...otherGames,
+			]),
 		);
 	}
 }
