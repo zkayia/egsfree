@@ -26,7 +26,7 @@ class CliConfigHandler {
 		} catch (err) {
 			stderr.writeln("Error: Failed to write to config file at '$configPath'.");
 			stderr.writeln("$err");
-			exit(2);
+			exit(1);
 		}
 	}
 
@@ -40,7 +40,7 @@ class CliConfigHandler {
 			: Platform.environment["HOME"];
 		if (home == null) {
 			stderr.writeln("Error: Failed to find the user home folder.");
-			exit(2);
+			exit(1);
 		}
 		return home;
 	}
@@ -52,7 +52,7 @@ class CliConfigHandler {
 		} catch (err) {
 			stderr.writeln("Error: Failed to write to or create the config file at '$configPath'.");
 			stderr.writeln("$err");
-			exit(2);
+			exit(1);
 		}
 	}
 }

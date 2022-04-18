@@ -58,7 +58,7 @@ Future<String> _getGames(Uri uri) async {
 		return response.transform(utf8.decoder).join();
 	} catch (err) {
 		stderr.writeln("Error: unable to fetch online data.");
-		exit(2);
+		exit(1);
 	} finally {
 		client.close();
 	} 
@@ -68,7 +68,7 @@ List<Game> _parseGames(data) {
 	final List? games = data?["data"]?["Catalog"]?["searchStore"]?["elements"];
 	if (games == null) {
 		stderr.writeln("Error: failed to parse EGS free games.");
-		exit(2);
+		exit(1);
 	}
 	return games.map((e) => Game.fromMap(e)).where((e) => e.status == "ACTIVE" && !e.isCodeRedemptionOnly).toList();
 }
