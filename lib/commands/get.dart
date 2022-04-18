@@ -9,6 +9,7 @@ import 'package:egsfree/models/cli_config.dart';
 import 'package:egsfree/models/game.dart';
 import 'package:egsfree/models/promotion.dart';
 import 'package:egsfree/utils/cli_config_handler.dart';
+import 'package:egsfree/utils/get_uri.dart';
 
 
 class GetCommand extends Command {
@@ -38,30 +39,14 @@ class GetCommand extends Command {
 				"allowCountries": argResults?["country"] ?? config.country,
 			}
 		);
-		final data = await _getGames(uri);
-		final games = _parseGames(jsonDecode(data));
+		final data = await uri.get();
+		final games = _parseGames(jsonDecode(data!));
 		if (games.isEmpty) {
 			stdout.writeln("No free game found.");
 			exit(0);
 		}
 		_displayGameList(games, argResults, config);
 	}
-}
-
-Future<String> _getGames(Uri uri) async {
-	final client = HttpClient();
-	try {
-		final request = await client.getUrl(uri)
-			..followRedirects = false
-			..persistentConnection = false;
-		final response = await request.close();
-		return response.transform(utf8.decoder).join();
-	} catch (err) {
-		stderr.writeln("Error: unable to fetch online data.");
-		exit(1);
-	} finally {
-		client.close();
-	} 
 }
 
 List<Game> _parseGames(data) {
