@@ -1,4 +1,6 @@
 
+final currentVersion = "1.0.2";
+
 final configPathUnix = "/.config/egsfree.json";
 final configPathWindows = r"\.config\egsfree.json";
 
