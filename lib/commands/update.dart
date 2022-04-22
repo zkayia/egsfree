@@ -56,7 +56,7 @@ class UpdateCommand extends Command {
 			allowDowngrade: true,
 		);
 		await for (final progress in update) {
-			stdout.write("\r${progress.progress}/${progress.total}");
+			stdout.write("\r${progress.progress}/${progress.total} ${progress.percentage.floor()}%");
 			if (progress.hasValue) {
 				stdout.writeln();
 				switch (progress.value?.exitCode) {
