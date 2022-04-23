@@ -34,7 +34,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "5655022421c8c11a4496571ff1dfe667bdf4e3b5"
+      resolved-ref: "8eff1b2a406a7b69d270d017b90987d84037b002"
       url: "https://github.com/zkayia/binary_updater"
     source: git
     version: "1.0.0"
