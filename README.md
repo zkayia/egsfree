@@ -53,6 +53,21 @@ Arguments:
 ```
 Running `egsfree config set --help` will show all possible keys and their default values.
 
+* (1.0.2+) Display current and latest version
+```
+egsfree --version
+```
+* (1.2.0+) Update or downgrade
+```
+egsfree update [arguments]
+
+Arguments:
+   -h, --help          Print this usage information.
+   -v, --version       The version to update to.
+   -f, --[no-]force    Force an update to the given/latest version even if it's the one currently installed.
+```
+Running `egsfree update -f -v=<your-current-version>` will reinstall the cli. You can omit the `-v` option if you're running latest.
+
 
 ## Build
 
