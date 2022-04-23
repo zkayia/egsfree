@@ -1,5 +1,11 @@
 
 
+# 1.2.1
+
+### Fixed
+- added disposing of the updater when the update exits
+- removed progress display when an update didn't occur
+
 # 1.2.0
 
 ### Features
