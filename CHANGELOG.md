@@ -1,5 +1,10 @@
 
 
+# 1.2.2
+
+### Fixed
+- allowed games with isCodeRedemptionOnly to be displayed
+
 # 1.2.1
 
 ### Fixed
