@@ -55,7 +55,7 @@ List<Game> _parseGames(data) {
 		stderr.writeln("Error: failed to parse EGS free games.");
 		exit(1);
 	}
-	return games.map((e) => Game.fromMap(e)).where((e) => e.status == "ACTIVE" && !e.isCodeRedemptionOnly).toList();
+	return games.map((e) => Game.fromMap(e)).where((e) => e.status == "ACTIVE").toList();
 }
 
 String _formatTimeframe(DateTime start, DateTime end) {
