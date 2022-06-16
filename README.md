@@ -3,7 +3,7 @@
 
 ![Demo animation](demo_anim.svg "Demo animation")
 
-A simple cli to find out what are the current and future free games on the EpicGamesStore.
+Simple cli to find out what are the current and future free games on the EpicGamesStore.
 
 ## Installation
 
