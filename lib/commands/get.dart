@@ -86,20 +86,17 @@ String _formatTimeframe(DateTime start, DateTime end) {
 	}
 }
 
-Promotion? _extractOffer(Game game) => game.promotions == null
-	? null
-	: game.promotions!.promotionalOffers.isEmpty
-		? game.promotions!.upcomingPromotionalOffers.isEmpty
-			? null
-			: game.promotions!.upcomingPromotionalOffers.first
-		: game.promotions!.promotionalOffers.first;
+List<Promotion> _extractOffer(Game game) => [
+  ...?game.promotions?.promotionalOffers,
+  ...?game.promotions?.upcomingPromotionalOffers,
+].where((e) => e.percentage == 0).toList();
 
 void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config) {
 	List<MapEntry<Promotion?, dynamic>> discountedGames = [];
 	List<List<String>> otherGames = [];
 	for (final game in games) {
-		final offer = _extractOffer(game);
-		if (offer == null) {
+		final offers = _extractOffer(game);
+		if (offers.isEmpty) {
 			otherGames.add([
 				"  -",
 				game.title,
@@ -110,12 +107,12 @@ void _displayGameList(List<Game> games, ArgResults? argResults, CliConfig config
 		}
 		discountedGames.add(
 			MapEntry(
-				offer,
+				offers.first,
 				[
 					"  -",
 					game.title,
 					game.seller,
-					_formatTimeframe(offer.startDateTime, offer.endDateTime),
+					_formatTimeframe(offers.first.startDateTime, offers.first.endDateTime),
 					"${game.originalPrice / 100} ${game.currencyCode}",
 					"\u001B]8;;https://www.epicgames.com/store/${config.locale}/p/${game.productSlug}\u001B\\Link\u001B]8;;\u001B\\",
 				],
