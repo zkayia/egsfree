@@ -5,7 +5,7 @@ import 'package:egsfree/commands/update.dart';
 
 
 final commands = [
-	GetCommand(),
-	ConfigCommand(),
-	UpdateCommand(),
+  GetCommand(),
+  ConfigCommand(),
+  UpdateCommand(),
 ];
