@@ -27,12 +27,14 @@ class Promotions {
     promotionalOffers: List<Promotion>.from(
       map["promotionalOffers"]?.isEmpty ?? true
         ? []
-        : map["promotionalOffers"]?.first?["promotionalOffers"]?.map(Promotion.fromMap),
+        // ignore: unnecessary_lambdas
+        : map["promotionalOffers"]?.first?["promotionalOffers"]?.map((e) => Promotion.fromMap(e)),
     ),
     upcomingPromotionalOffers: List<Promotion>.from(
       map["upcomingPromotionalOffers"]?.isEmpty ?? true
         ? []
-        : map["upcomingPromotionalOffers"]?.first?["promotionalOffers"]?.map(Promotion.fromMap),
+        // ignore: unnecessary_lambdas
+        : map["upcomingPromotionalOffers"]?.first?["promotionalOffers"]?.map((e) => Promotion.fromMap(e)),
     ),
   );
 
