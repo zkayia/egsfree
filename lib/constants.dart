@@ -2,7 +2,7 @@
 import 'package:version/version.dart';
 
 
-final currentVersion = Version(1, 2, 2);
+final currentVersion = Version(1, 2, 3);
 
 final configPathUnix = "/.config/egsfree.json";
 final configPathWindows = r"\.config\egsfree.json";

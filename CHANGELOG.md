@@ -1,5 +1,10 @@
 
 
+# 1.2.3
+
+### Fixed
+- retain only 100% promotions to avoid timeframe errors
+
 # 1.2.2
 
 ### Fixed
